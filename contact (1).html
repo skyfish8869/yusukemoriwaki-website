@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Yusuke Moriwaki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0c0c0b;
+    --fg: #ece8e1;
+    --fg-dim: #8c8880;
+    --line: #2a2a27;
+    --accent: #b08d57;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100svh;
+    display:flex;
+    flex-direction: column;
+  }
+
+  header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 6vw;
+  }
+  .logo{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  nav{ display:flex; gap: 36px; }
+  nav a{
+    color: var(--fg);
+    text-decoration:none;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    transition: opacity .3s ease;
+  }
+  nav a.current, nav a:hover, nav a:focus-visible{ opacity: 1; }
+
+  main{
+    flex: 1;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align:center;
+    padding: 8vh 6vw;
+  }
+  .eyebrow{
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .mail{
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+    transition: border-color .3s ease, color .3s ease;
+  }
+  .mail:hover, .mail:focus-visible{
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .location{
+    margin-top: 26px;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+  }
+  .social{
+    margin-top: 18px;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .social a{
+    color: var(--fg-dim);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color .3s ease, border-color .3s ease;
+  }
+  .social a:hover, .social a:focus-visible{
+    color: var(--fg);
+    border-color: var(--accent);
+  }
+
+  footer{
+    padding: 40px 6vw;
+    border-top: 1px solid var(--line);
+    text-align:center;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 720px){
+    header{ padding: 22px 6vw; }
+    nav{ gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">Yusuke Moriwaki</a>
+  <nav>
+    <a href="#">Works</a>
+    <a class="current" href="#">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <span class="eyebrow">Get in touch</span>
+  <a class="mail" href="mailto:sky.fish.8869@gmail.com">sky.fish.8869@gmail.com</a>
+  <span class="location">Tokyo, Japan</span>
+  <span class="social"><a href="https://www.instagram.com/yusukemoriwaki_photo" target="_blank" rel="noopener">Instagram — @yusukemoriwaki_photo</a></span>
+</main>
+
+<footer>© Yusuke Moriwaki</footer>
+
+</body>
+</html>

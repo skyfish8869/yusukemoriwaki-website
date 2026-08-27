@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yusuke Moriwaki — Photographer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0c0c0b;
+    --bg-raise: #141413;
+    --fg: #ece8e1;
+    --fg-dim: #8c8880;
+    --line: #2a2a27;
+    --accent: #b08d57;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- Header ---- */
+  header{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 50;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 6vw;
+    mix-blend-mode: difference;
+  }
+  .logo{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: #fff;
+    text-decoration: none;
+  }
+  nav{ display:flex; gap: 36px; }
+  nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    transition: opacity .3s ease;
+  }
+  nav a:hover, nav a:focus-visible{ opacity: 1; }
+
+  /* ---- Hero ---- */
+  .hero{
+    height: 100svh;
+    position: relative;
+    display:flex;
+    align-items: flex-end;
+    overflow:hidden;
+  }
+  .hero img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    filter: grayscale(15%) contrast(1.03);
+    transform: scale(1.02);
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);
+  }
+  .hero-caption{
+    position: relative;
+    z-index: 2;
+    padding: 0 6vw 48px;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width:100%;
+  }
+  .hero-frame{
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.65);
+  }
+  .scroll-cue{
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    writing-mode: vertical-rl;
+    text-transform: uppercase;
+  }
+
+  /* ---- Gallery: sequential large frames ---- */
+  .gallery{
+    padding: 14vh 6vw 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14vh;
+  }
+  .frame{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .frame.wide{ align-items: center; }
+  .frame.wide img{ max-width: 78%; }
+  .frame.left img{ margin-right: auto; }
+  .frame.right img{ margin-left: auto; }
+  .frame img{
+    display:block;
+    width: 62%;
+    max-width: 720px;
+    height: auto;
+    filter: grayscale(12%) contrast(1.02);
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .frame.visible img{ opacity: 1; transform: translateY(0); }
+
+  .frame-meta{
+    display:flex;
+    justify-content: space-between;
+    width: 62%;
+    max-width: 720px;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--fg-dim);
+    opacity: 0;
+    transition: opacity 1s ease .2s;
+  }
+  .frame.visible .frame-meta{ opacity: 1; }
+  .frame.wide .frame-meta{ width: 78%; }
+
+  @media (max-width: 720px){
+    .frame img, .frame-meta, .frame.wide img, .frame.wide .frame-meta{ width: 100%; max-width: none; }
+    header{ padding: 22px 6vw; }
+    nav{ gap: 20px; }
+  }
+
+  /* ---- Footer ---- */
+  footer{
+    margin-top: 22vh;
+    padding: 64px 6vw 48px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  footer .name{
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--fg);
+  }
+  footer .meta{
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+  }
+  footer a{ color: var(--fg-dim); text-decoration: none; border-bottom: 1px solid transparent; }
+  footer a:hover{ color: var(--fg); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">Yusuke Moriwaki</a>
+  <nav>
+    <a href="#works">Works</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <img src="https://static.wixstatic.com/media/a74546_e05a11736fbe425bac592bf83c3b0756~mv2.jpg/v1/fill/w_333,h_444,q_90,enc_avif,quality_auto/a74546_e05a11736fbe425bac592bf83c3b0756~mv2.jpg" alt="">
+  <div class="hero-caption">
+    <span class="hero-frame">FASHION — 2026</span>
+    <span class="scroll-cue">SCROLL</span>
+  </div>
+</section>
+
+<section class="gallery" id="works">
+  <div class="frame left"><img loading="lazy" src="https://static.wixstatic.com/media/a74546_df2567bc239c4583bcbfbd995d81d94a~mv2.jpg/v1/fill/w_332,h_498,q_90,enc_avif,quality_auto/a74546_df2567bc239c4583bcbfbd995d81d94a~mv2.jpg" alt=""><div class="frame-meta"><span>01</span><span>FASHION</span></div></div>
+
+  <div class="frame wide"><img loading="lazy" src="https://static.wixstatic.com/media/a74546_528615bb466145a293b80a0e6710ee9b~mv2.jpg/v1/fill/w_332,h_249,q_90,enc_avif,quality_auto/a74546_528615bb466145a293b80a0e6710ee9b~mv2.jpg" alt=""><div class="frame-meta"><span>02</span><span>FASHION</span></div></div>
+
+  <div class="frame right"><img loading="lazy" src="https://static.wixstatic.com/media/a74546_ab66fffd2f49458ab2e1dcf24ac5c46d~mv2.jpg/v1/fill/w_332,h_443,q_90,enc_avif,quality_auto/a74546_ab66fffd2f49458ab2e1dcf24ac5c46d~mv2.jpg" alt=""><div class="frame-meta"><span>03</span><span>FASHION</span></div></div>
+
+  <div class="frame left"><img loading="lazy" src="https://static.wixstatic.com/media/a74546_bf9d2ecbf4fb4594b3866fccd3b8689f~mv2.jpg/v1/fill/w_333,h_444,q_90,enc_avif,quality_auto/a74546_bf9d2ecbf4fb4594b3866fccd3b8689f~mv2.jpg" alt=""><div class="frame-meta"><span>04</span><span>FASHION</span></div></div>
+
+  <div class="frame wide"><img loading="lazy" src="https://static.wixstatic.com/media/a74546_768346ebbc6e4900be7bb7ec76bf51e6~mv2.jpg/v1/fill/w_333,h_444,q_90,enc_avif,quality_auto/a74546_768346ebbc6e4900be7bb7ec76bf51e6~mv2.jpg" alt=""><div class="frame-meta"><span>05</span><span>FASHION</span></div></div>
+
+  <div class="frame right"><img loading="lazy" src="https://static.wixstatic.com/media/a74546_5203a89a62614825a11dffcb736cca5a~mv2.jpg/v1/fill/w_333,h_444,q_90,enc_avif,quality_auto/a74546_5203a89a62614825a11dffcb736cca5a~mv2.jpg" alt=""><div class="frame-meta"><span>06</span><span>FASHION</span></div></div>
+
+  <div class="frame left"><img loading="lazy" src="https://static.wixstatic.com/media/a74546_4f5c84b435e44124b5d6380cdccdc6dc~mv2.jpg/v1/fill/w_332,h_501,q_90,enc_avif,quality_auto/a74546_4f5c84b435e44124b5d6380cdccdc6dc~mv2.jpg" alt=""><div class="frame-meta"><span>07</span><span>FASHION</span></div></div>
+</section>
+
+<footer id="contact">
+  <span class="name">Yusuke Moriwaki</span>
+  <span class="meta"><a href="mailto:sky.fish.8869@gmail.com">sky.fish.8869@gmail.com</a> &nbsp;/&nbsp; Tokyo</span>
+</footer>
+
+<script>
+  const frames = document.querySelectorAll('.frame');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  frames.forEach(f=>io.observe(f));
+</script>
+
+</body>
+</html>
