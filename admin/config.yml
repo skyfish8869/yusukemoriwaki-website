@@ -1,0 +1,38 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "ja"
+
+collections:
+  - name: "top"
+    label: "Top ページ"
+    files:
+      - name: "top"
+        label: "Topページの写真"
+        file: "content/top.json"
+        fields:
+          - { label: "背景に使う写真", name: "hero", widget: "image" }
+          - label: "本文に並べる写真"
+            name: "photos"
+            widget: "list"
+            summary: "{{fields.image}}"
+            fields:
+              - { label: "写真", name: "image", widget: "image" }
+
+  - name: "works"
+    label: "Works ページ"
+    files:
+      - name: "works"
+        label: "Fashion 作品一覧"
+        file: "content/works.json"
+        fields:
+          - label: "作品(上から表示される順番)"
+            name: "photos"
+            widget: "list"
+            summary: "{{fields.image}}"
+            fields:
+              - { label: "写真", name: "image", widget: "image" }

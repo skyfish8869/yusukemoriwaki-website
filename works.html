@@ -161,6 +161,7 @@
   footer a{ color: var(--fg-dim); text-decoration: none; border-bottom: 1px solid transparent; }
   footer a:hover{ color: var(--fg); border-color: var(--accent); }
 </style>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -185,51 +186,41 @@
 </footer>
 
 <script>
-  // 仮の写真データ(実運用ではNetlify CMSが生成するJSON/フロントマターに置き換え)
-  const SOURCE = [
-    "a74546_73de8a1e16734082a10d134421e7a809","a74546_df2567bc239c4583bcbfbd995d81d94a",
-    "a74546_e05a11736fbe425bac592bf83c3b0756","a74546_528615bb466145a293b80a0e6710ee9b",
-    "a74546_ab66fffd2f49458ab2e1dcf24ac5c46d","a74546_bf9d2ecbf4fb4594b3866fccd3b8689f",
-    "a74546_768346ebbc6e4900be7bb7ec76bf51e6","a74546_0fe3cc8257434140b4ab954c2e2046b5",
-    "a74546_7b151667067242b4b09c5abf6469c76b","a74546_bf73d7cd40af401b9491bfd3585f40e0",
-    "a74546_5203a89a62614825a11dffcb736cca5a","a74546_5faf46871934409c8ba69cd41fe2d54d",
-    "a74546_4b8c7a110b4e44f693e1151d7f226166","a74546_4f5c84b435e44124b5d6380cdccdc6dc",
-    "a74546_55a52134e1cb4fe39254686a4e1435db","a74546_a0a6f782eb8943ec865271d51ffd67c0",
-    "a74546_323afae5fc1346f58f0fbfb90954ff80","a74546_8f46f14bcea44bcc9b96d398c7c5e661",
-    "a74546_4d5c161fc7b14f84bc2e38149cc0ea49","a74546_e9e353239f424150af9353fada39afe4",
-    "a74546_741d0085acef4f308ef54268df905ebb","a74546_d83c5c0b477b42198e21a14c8b13859f",
-    "a74546_13b364a65c744e479ce028e34101cf96","a74546_ead41409de0642349630df33f883ae55",
-    "a74546_7abcc340efbd46129d1fa9632bfe6af4"
-  ];
+  // Netlify CMSが更新する content/works.json から写真を読み込む
+  fetch('/content/works.json')
+    .then(res => res.json())
+    .then(data => {
+      const SOURCE = data.photos.map(p => p.image);
 
-  const gallery = document.getElementById('gallery');
-  const layouts = ['left','wide','right'];
-  const SECTION_SIZE = 6; // 6枚ごとに区切りを挿入
+      const gallery = document.getElementById('gallery');
+      const layouts = ['left','wide','right'];
+      const SECTION_SIZE = 6; // 6枚ごとに区切りを挿入
 
-  SOURCE.forEach((id, i) => {
-    if(i > 0 && i % SECTION_SIZE === 0){
-      const div = document.createElement('div');
-      div.className = 'divider';
-      const rangeStart = String(i+1).padStart(2,'0');
-      const rangeEnd = String(Math.min(i+SECTION_SIZE, SOURCE.length)).padStart(2,'0');
-      div.innerHTML = `<span>${rangeStart}–${rangeEnd}</span><div class="rule"></div>`;
-      gallery.appendChild(div);
-    }
-    const frame = document.createElement('div');
-    frame.className = 'frame ' + layouts[i % layouts.length];
-    frame.innerHTML = `
-      <img loading="lazy" src="https://static.wixstatic.com/media/${id}~mv2.jpg/v1/fill/w_500,h_650,q_90,enc_avif,quality_auto/${id}~mv2.jpg" alt="">
-      <div class="frame-meta"><span>${String(i+1).padStart(2,'0')}</span><span>FASHION</span></div>
-    `;
-    gallery.appendChild(frame);
-  });
+      SOURCE.forEach((imgUrl, i) => {
+        if(i > 0 && i % SECTION_SIZE === 0){
+          const div = document.createElement('div');
+          div.className = 'divider';
+          const rangeStart = String(i+1).padStart(2,'0');
+          const rangeEnd = String(Math.min(i+SECTION_SIZE, SOURCE.length)).padStart(2,'0');
+          div.innerHTML = `<span>${rangeStart}–${rangeEnd}</span><div class="rule"></div>`;
+          gallery.appendChild(div);
+        }
+        const frame = document.createElement('div');
+        frame.className = 'frame ' + layouts[i % layouts.length];
+        frame.innerHTML = `
+          <img loading="lazy" src="${imgUrl}" alt="">
+          <div class="frame-meta"><span>${String(i+1).padStart(2,'0')}</span><span>FASHION</span></div>
+        `;
+        gallery.appendChild(frame);
+      });
 
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.frame').forEach(f=>io.observe(f));
     });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.frame').forEach(f=>io.observe(f));
 </script>
 
 </body>
