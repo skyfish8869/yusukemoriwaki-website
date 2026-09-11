@@ -35,7 +35,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 28px 6vw;
-    mix-blend-mode: difference;
   }
   .logo{
     font-family: 'Cormorant Garamond', serif;
@@ -43,6 +42,7 @@
     letter-spacing: 0.08em;
     color: #fff;
     text-decoration: none;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.4);
   }
   nav{ display:flex; gap: 36px; }
   nav a{
@@ -51,8 +51,9 @@
     font-size: 0.72rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    opacity: 0.75;
+    opacity: 0.85;
     transition: opacity .3s ease;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.4);
   }
   nav a:hover, nav a:focus-visible{ opacity: 1; }
 
@@ -72,7 +73,6 @@
     object-fit: cover;
     object-position: center 15%;
     filter: grayscale(15%) contrast(1.03);
-    transform: scale(1.0);
   }
   .hero::after{
     content:"";
